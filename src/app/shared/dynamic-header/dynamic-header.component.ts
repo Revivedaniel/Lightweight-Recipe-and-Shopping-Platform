@@ -30,4 +30,5 @@ export class DynamicHeaderComponent {
   // Button Inputs
   // TODO: Style the buttons
   @Input() buttons: HeaderButton[] = [];
+  @Input() alignHeader: 'top' | 'bottom' = 'top';
 }

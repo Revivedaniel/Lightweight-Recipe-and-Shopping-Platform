@@ -1,6 +1,6 @@
-<mat-toolbar>
+<mat-toolbar [ngClass]="alignHeader !== 'top' ? 'footer' : 'header'">
     <span *ngIf="includeJumbotron" id="jumbotron">{{jumbotronText}}</span>
-    <span class="spacer"></span>
+    <span *ngIf="includeJumbotron" class="spacer"></span>
     <div *ngFor="let button of buttons">
         <button *ngIf="button.functionalityType === 'Button'" (click)="button.function !== undefined ? button.function() : null" mat-icon-button>
             <mat-icon *ngIf="button.contentType === 'Icon'">{{button.content}}</mat-icon>
