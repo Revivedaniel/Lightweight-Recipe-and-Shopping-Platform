@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { DynamicHeaderComponent, HeaderButton } from './shared/dynamic-header/dynamic-header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, DynamicHeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Lightweight-Recipe-and-Shopping-Platform';
+  buttons: HeaderButton[] = [
+    {
+      functionalityType: 'Link',
+      contentType: 'Icon',
+      content: 'home',
+      link: '/',
+    },
+    {
+      functionalityType: 'Link',
+      contentType: 'Icon',
+      content: 'add',
+      link: '/new',
+    },
+  ];
 }

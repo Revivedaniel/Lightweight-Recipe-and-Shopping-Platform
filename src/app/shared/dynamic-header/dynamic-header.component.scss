@@ -1,0 +1,19 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 600px){
+    #jumbotron {
+        font-size: medium;
+    }
+}
+@media screen and (max-width: 350px){
+    #jumbotron {
+        font-size: small;
+    }
+}
