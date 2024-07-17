@@ -14,15 +14,15 @@ export class AppComponent {
   buttons: HeaderButton[] = [
     {
       functionalityType: 'Link',
-      contentType: 'Icon',
-      content: 'home',
+      contentType: 'Text',
+      content: 'Recipes',
       link: '/',
     },
     {
       functionalityType: 'Link',
-      contentType: 'Icon',
-      content: 'add',
-      link: '/new',
+      contentType: 'Text',
+      content: 'Shopping',
+      link: '/shopping',
     },
   ];
 }
