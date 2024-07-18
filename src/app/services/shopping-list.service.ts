@@ -14,6 +14,10 @@ export class ShoppingListService {
     return this.db.shoppingListItem.toArray();
   }
 
+  addItem(item: ShoppingListItem) {
+    this.db.shoppingListItem.add(item);
+  }
+
   updateItem(item: ShoppingListItem): PromiseExtended<number> {
     return this.db.shoppingListItem.put(item);
   }

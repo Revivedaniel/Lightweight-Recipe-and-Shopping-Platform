@@ -1,5 +1,6 @@
 <mat-list-item role="listitem">
     {{item.quantity}}
+    {{item.measurement}}
     {{item.name}}
     <button mat-fab extended (click)="toggleInCart()">
         {{item.inCart ? 'Remove from' : 'Add to'}} Cart
