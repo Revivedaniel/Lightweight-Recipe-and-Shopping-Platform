@@ -1,8 +1,8 @@
 <mat-list-item role="listitem">
-    {{item.qty}}
+    {{item.quantity}}
     {{item.name}}
-    <button mat-fab extended>
-        Add to Cart
+    <button mat-fab extended (click)="toggleInCart()">
+        {{item.inCart ? 'Remove from' : 'Add to'}} Cart
     </button>
     <button mat-mini-fab aria-label="Icon button with a verticle ellipses icon">
         <mat-icon>more_vert</mat-icon>

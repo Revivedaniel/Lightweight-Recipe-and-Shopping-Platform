@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import { ShoppingListItem } from '../../models/shoppingListItem.model';
 
 @Component({
   selector: 'app-list-item',
@@ -11,5 +12,16 @@ import {MatListModule} from '@angular/material/list';
   styleUrl: './list-item.component.scss'
 })
 export class ListItemComponent {
-  @Input() item: any = {};
+  @Input() item: ShoppingListItem = {
+    id: 1,
+    quantity: 1,
+    name: 'Peaches',
+    inCart: false,
+    measurement: ''
+  };
+
+  toggleInCart() {
+    // TODO: Make this update the IndexedDB
+    this.item.inCart = !this.item.inCart;
+  }
 }
