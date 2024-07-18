@@ -1,15 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { ShoppingListItem } from '../../models/shoppingListItem.model';
+import { ShoppingListService } from '../../services/shopping-list.service';
 
 @Component({
   selector: 'app-list-item',
   standalone: true,
   imports: [MatListModule, MatButtonModule, MatIconModule],
   templateUrl: './list-item.component.html',
-  styleUrl: './list-item.component.scss'
+  styleUrl: './list-item.component.scss',
 })
 export class ListItemComponent {
   @Input() item: ShoppingListItem = {
@@ -17,11 +18,15 @@ export class ListItemComponent {
     quantity: 1,
     name: 'Peaches',
     inCart: false,
-    measurement: ''
+    measurement: '',
   };
 
+  constructor(private shoppingListService: ShoppingListService) {}
+
   toggleInCart() {
-    // TODO: Make this update the IndexedDB
-    this.item.inCart = !this.item.inCart;
+    const item = { ...this.item, inCart: !this.item.inCart };
+    this.shoppingListService.updateItem(item).then(() => {
+      this.item = item;
+    });
   }
 }
