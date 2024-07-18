@@ -6,7 +6,7 @@ import { ListItemComponent } from '../components/list-item/list-item.component';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { ShoppingListItem } from '../models/shoppingListItem.model';
-import { AppDB } from '../db';
+import { ShoppingListService } from '../services/shopping-list.service';
 
 @Component({
   selector: 'app-shopping',
@@ -25,15 +25,11 @@ import { AppDB } from '../db';
 export class ShoppingComponent implements OnInit {
   items: ShoppingListItem[] = [];
 
-  constructor(private db: AppDB) {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {
-    this.db.clear();
-    this.db.populate().then(() => {
-      this.db.shoppingListItem.toArray().then((items) => {
-        console.log('items loaded from IndexedDB')
-        this.items = items;
-      });
+    this.shoppingListService.getShoppingList().then((items) => {
+      this.items = items;
     });
   }
 }
