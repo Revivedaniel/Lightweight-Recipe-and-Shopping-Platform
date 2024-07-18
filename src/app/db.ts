@@ -19,21 +19,21 @@ export class AppDB extends Dexie {
         id: 1,
         quantity: 1,
         name: 'Peaches',
-        inCart: false,
+        inCart: 0,
         measurement: ''
       },
       {
         id: 2,
         quantity: 8,
         name: 'Tomatoes',
-        inCart: false,
+        inCart: 0,
         measurement: ''
       },
       {
         id: 3,
         quantity: 3,
         name: 'Apples',
-        inCart: false,
+        inCart: 0,
         measurement: ''
       }
     ]);

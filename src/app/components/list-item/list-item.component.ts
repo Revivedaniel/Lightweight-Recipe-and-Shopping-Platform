@@ -17,14 +17,14 @@ export class ListItemComponent {
     id: 1,
     quantity: 1,
     name: 'Peaches',
-    inCart: false,
+    inCart: 0,
     measurement: '',
   };
 
   constructor(private shoppingListService: ShoppingListService) {}
 
   toggleInCart() {
-    const item = { ...this.item, inCart: !this.item.inCart };
+    const item: ShoppingListItem = { ...this.item, inCart: this.item.inCart === 1 ? 0 : 1 };
     this.shoppingListService.updateItem(item).then(() => {
       this.item = item;
     });

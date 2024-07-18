@@ -17,4 +17,12 @@ export class ShoppingListService {
   updateItem(item: ShoppingListItem): PromiseExtended<number> {
     return this.db.shoppingListItem.put(item);
   }
+
+  clearList(): Promise<void> {
+    return this.db.shoppingListItem.clear();
+  }
+
+  clearInCart(): PromiseExtended<number> {
+    return this.db.shoppingListItem.where('inCart').equals(1).delete();
+  }
 }

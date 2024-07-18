@@ -3,5 +3,5 @@ export interface ShoppingListItem {
     name: string;
     quantity: number;
     measurement: string;
-    inCart: boolean;
+    inCart: 0 | 1;
   }
