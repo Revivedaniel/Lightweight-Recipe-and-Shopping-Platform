@@ -22,6 +22,10 @@ export class ShoppingListService {
     return this.db.shoppingListItem.put(item);
   }
 
+  removeItem(id: number): PromiseExtended<void> {
+    return this.db.shoppingListItem.delete(id);
+  }
+
   clearList(): Promise<void> {
     return this.db.shoppingListItem.clear();
   }

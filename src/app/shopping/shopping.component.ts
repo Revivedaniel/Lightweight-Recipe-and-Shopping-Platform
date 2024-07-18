@@ -10,13 +10,9 @@ import { ShoppingListService } from '../services/shopping-list.service';
 import { AppDB } from '../db';
 import {
   MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
 } from '@angular/material/dialog';
 import { ShoppingListFormComponent } from '../components/shopping-list-form/shopping-list-form.component';
+import { ShoppingListVerificationComponent } from '../components/shopping-list-verification/shopping-list-verification.component';
 
 @Component({
   selector: 'app-shopping',
@@ -60,11 +56,17 @@ export class ShoppingComponent implements OnInit {
     });
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(ShoppingListFormComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
+    });
+  }
+
+  openVerifyDialog() {
+    this.dialog.open(ShoppingListVerificationComponent, {
+      width: '250px',
     });
   }
 }
