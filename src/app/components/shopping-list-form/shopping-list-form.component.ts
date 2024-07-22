@@ -50,4 +50,10 @@ export class ShoppingListFormComponent implements OnInit {
       this.shoppingListForm.reset();
     }
   }
+
+  deleteItem() {
+    if (this.data) {
+      this.shoppingListService.deleteItem(this.data.id);
+    }
+  }
 }

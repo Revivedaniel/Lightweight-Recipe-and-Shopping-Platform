@@ -33,4 +33,8 @@ export class ShoppingListService {
   clearInCart(): PromiseExtended<number> {
     return this.db.shoppingListItem.where('inCart').equals(1).delete();
   }
+
+  deleteItem(id: number) {
+    this.db.shoppingListItem.delete(id);
+  }
 }

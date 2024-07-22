@@ -21,5 +21,6 @@
     <mat-checkbox formControlName="inCart">In Cart</mat-checkbox>
   
     <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true">Add Item</button>
+    <button *ngIf="data" mat-raised-button color="primary" (click)="deleteItem()" [mat-dialog-close]="false">Delete</button>
   </form>
   
