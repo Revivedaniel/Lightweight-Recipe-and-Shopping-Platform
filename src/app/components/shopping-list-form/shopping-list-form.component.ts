@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShoppingListService } from '../../services/shopping-list.service';
 import { ShoppingListItem } from '../../models/shoppingListItem.model';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shopping-list-form',
@@ -18,17 +18,26 @@ import { MatDialogModule } from '@angular/material/dialog';
 })
 export class ShoppingListFormComponent implements OnInit {
   shoppingListForm!: FormGroup;
-  measurements: string[] = ['tsp', 'tbsp', 'fl oz', 'cup', 'pt', 'qt', 'gal', 'ml', 'l', 'oz', 'lb', 'g', 'kg', 'in', 'cm', 'mm', 'pc', 'slice', 'clove', 'bunch', 'dozen', 'pack', 'dash', 'pinch', 'drop', 'stick', 'can', 'jar', 'bottle'];
+  measurements: string[] = [ '', 'tsp', 'tbsp', 'fl oz', 'cup', 'pt', 'qt', 'gal', 'ml', 'l', 'oz', 'lb', 'g', 'kg', 'in', 'cm', 'mm', 'pc', 'slice', 'clove', 'bunch', 'dozen', 'pack', 'dash', 'pinch', 'drop', 'stick', 'can', 'jar', 'bottle'];
 
-  constructor(private fb: FormBuilder, private shoppingListService: ShoppingListService) {}
+  constructor(private fb: FormBuilder, private shoppingListService: ShoppingListService, @Inject(MAT_DIALOG_DATA) public data: ShoppingListItem) {}
 
   ngOnInit(): void {
-    this.shoppingListForm = this.fb.group({
-      name: ['', Validators.required],
-      quantity: [1, [Validators.required, Validators.min(1)]],
-      measurement: ['', Validators.required],
-      inCart: [0]
-    });
+    if (this.data) {
+      this.shoppingListForm = this.fb.group({
+        name: [this.data.name, Validators.required],
+        quantity: [this.data.quantity, [Validators.required, Validators.min(1)]],
+        measurement: [this.data.measurement, Validators.required],
+        inCart: [this.data.inCart]
+      });
+    } else {
+      this.shoppingListForm = this.fb.group({
+        name: ['', Validators.required],
+        quantity: [1, [Validators.required, Validators.min(1)]],
+        measurement: ['', Validators.required],
+        inCart: [0]
+      });
+    }
   }
 
   onSubmit() {

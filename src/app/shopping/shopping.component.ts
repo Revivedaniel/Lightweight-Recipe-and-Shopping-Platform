@@ -56,11 +56,9 @@ export class ShoppingComponent implements OnInit {
     });
   }
 
-  openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openAddDialog(): void {
     this.dialog.open(ShoppingListFormComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+      width: '250px'
     });
   }
 
