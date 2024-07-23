@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +13,7 @@ import {
 } from '@angular/material/dialog';
 import { ShoppingListFormComponent } from '../components/shopping-list-form/shopping-list-form.component';
 import { ShoppingListVerificationComponent } from '../components/shopping-list-verification/shopping-list-verification.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shopping',
@@ -28,16 +29,19 @@ import { ShoppingListVerificationComponent } from '../components/shopping-list-v
   templateUrl: './shopping.component.html',
   styleUrl: './shopping.component.scss',
 })
-export class ShoppingComponent implements OnInit {
+export class ShoppingComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog  );
   items: ShoppingListItem[] = [];
+  shoppingListSubscription!: Subscription;
 
   constructor(private shoppingListService: ShoppingListService, private db: AppDB) {}
 
   ngOnInit(): void {
     // this.db.populate();
-    // TODO: Make the shopping list a subject and subscribe to it
     this.shoppingListService.getShoppingList().then((items) => {
+      this.items = items;
+    });
+    this.shoppingListSubscription = this.shoppingListService.shoppingListChanges.subscribe((items) => {
       this.items = items;
     });
   }
@@ -66,5 +70,9 @@ export class ShoppingComponent implements OnInit {
     this.dialog.open(ShoppingListVerificationComponent, {
       width: '250px',
     });
+  }
+
+  ngOnDestroy(): void {
+    this.shoppingListSubscription.unsubscribe();
   }
 }
