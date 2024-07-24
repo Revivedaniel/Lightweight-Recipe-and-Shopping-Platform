@@ -61,7 +61,8 @@ export class RecipeService {
     return this.recipes.find(recipe => recipe.id === id);
   }
 
-  addRecipe(recipe: Recipe) {
+  addRecipe(recipe: Recipe): number {
     this.recipes.push(recipe);
+    return recipe.id;
   }
 }
