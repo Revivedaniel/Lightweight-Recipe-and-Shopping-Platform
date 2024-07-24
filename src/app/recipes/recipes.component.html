@@ -15,4 +15,6 @@
       </button>
       <mat-divider></mat-divider>
 </div>
-<app-recipe-item></app-recipe-item>
+<div>
+  <app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-item>
+</div>

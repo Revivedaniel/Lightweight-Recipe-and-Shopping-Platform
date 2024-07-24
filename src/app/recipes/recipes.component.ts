@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { RecipeItemComponent } from '../components/recipe-item/recipe-item.component';
+import { RecipeService } from '../services/recipe.service';
+import { Recipe } from '../models/recipe.model';
 
 export interface User {
   name: string;
@@ -19,6 +21,7 @@ export interface User {
   selector: 'app-recipes',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -37,6 +40,9 @@ export class RecipesComponent implements OnInit {
   myControl = new FormControl<string | User>('');
   options: User[] = [{ name: 'Mary' }, { name: 'Shelley' }, { name: 'Igor' }];
   filteredOptions!: Observable<User[]>;
+  recipes: Recipe[] = [];
+
+  constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -46,6 +52,8 @@ export class RecipesComponent implements OnInit {
         return name ? this._filter(name as string) : this.options.slice();
       })
     );
+
+    this.recipes = this.recipeService.getRecipes();
   }
 
   displayFn(user: User): string {
