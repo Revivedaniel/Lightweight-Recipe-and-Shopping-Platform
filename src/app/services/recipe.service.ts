@@ -1,68 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../models/recipe.model';
+import { Subject } from 'rxjs';
+import { AppDB } from '../db';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  recipes: Recipe[] = [
-    {
-      id: 1,
-      name: 'Recipe 1',
-      description: 'This is a description for recipe 1',
-      ingredients: [
-        {
-          id: 1,
-          name: 'Ingredient 1',
-          quantity: 1,
-          measurement: 'cup',
-          inCart: 0
-        },
-        {
-          id: 2,
-          name: 'Ingredient 2',
-          quantity: 2,
-          measurement: 'tbsp',
-          inCart: 0
-        }
-      ],
-      instructions: ['Step 1', 'Step 2', 'Step 3']
-    },
-    {
-      id: 2,
-      name: 'Recipe 2',
-      description: 'This is a description for recipe 2',
-      ingredients: [
-        {
-          id: 3,
-          name: 'Ingredient 3',
-          quantity: 1,
-          measurement: 'cup',
-          inCart: 0
-        },
-        {
-          id: 4,
-          name: 'Ingredient 4',
-          quantity: 2,
-          measurement: 'tbsp',
-          inCart: 0
-        }
-      ],
-      instructions: ['Step 1', 'Step 2', 'Step 3']
-    }
-  ]
-  constructor() { }
+  private recipes: Recipe[] = []
+  recipesChanged = new Subject<Recipe[]>();
+  constructor(private db: AppDB) { }
 
-  getRecipes() {
-    return this.recipes;
+  getRecipes(): Promise<Recipe[]> {
+    return this.db.recipe.toArray();
   }
 
-  getRecipe(id: number) {
-    return this.recipes.find(recipe => recipe.id === id);
+  getRecipe(id: number): Promise<Recipe | undefined> {
+    return this.db.recipe.get(id);
   }
 
-  addRecipe(recipe: Recipe): number {
-    this.recipes.push(recipe);
-    return recipe.id;
+  async addRecipe(recipe: Recipe): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.db.recipe.add(recipe).then((id) => {
+        this.handleRecipeChange();
+        resolve(id);
+      });
+    });
+  }
+
+  handleRecipeChange() {
+    this.getRecipes().then((recipes) => {
+      this.recipes = recipes;
+      this.recipesChanged.next([...this.recipes]);
+    });
   }
 }

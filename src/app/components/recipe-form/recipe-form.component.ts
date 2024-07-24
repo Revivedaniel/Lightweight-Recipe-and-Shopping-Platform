@@ -67,7 +67,11 @@ export class RecipeFormComponent implements OnInit {
     'bottle',
   ];
 
-  constructor(private fb: FormBuilder, private recipeService: RecipeService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private recipeService: RecipeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
@@ -192,10 +196,11 @@ export class RecipeFormComponent implements OnInit {
         instructions: instructions, // Use the transformed array of strings
       };
 
-      const newRecipeId = this.recipeService.addRecipe(newRecipe);
-      this.recipeForm.reset();
-      this.resetFormArrays();
-      this.router.navigate(['/recipes', newRecipeId]);
+      this.recipeService.addRecipe(newRecipe).then((newRecipeId) => {
+        this.recipeForm.reset();
+        this.resetFormArrays();
+        this.router.navigate(['/recipes', newRecipeId]);
+      });
     } else {
       // Handle the error case where no ingredients or instructions have been added
       alert('Please add at least one ingredient and one instruction.');

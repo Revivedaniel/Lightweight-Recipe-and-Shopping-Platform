@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -42,6 +42,7 @@ export class RecipesComponent implements OnInit {
   options: User[] = [{ name: 'Mary' }, { name: 'Shelley' }, { name: 'Igor' }];
   filteredOptions!: Observable<User[]>;
   recipes: Recipe[] = [];
+  recipeSubscription!: Subscription;
 
   constructor(private recipeService: RecipeService, private router: Router) {}
 
@@ -54,7 +55,15 @@ export class RecipesComponent implements OnInit {
       })
     );
 
-    this.recipes = this.recipeService.getRecipes();
+    this.recipeService.getRecipes().then((recipes) => {
+      this.recipes = recipes;
+    });
+
+    this.recipeSubscription = this.recipeService.recipesChanged.subscribe(
+      (recipes) => {
+        this.recipes = recipes;
+      }
+    );
   }
 
   displayFn(user: User): string {
