@@ -37,11 +37,6 @@ export class RecipeComponent implements OnInit {
     }
   }
 
-  // navigate to the edit recipe page
-  editRecipe(): void {
-    this.router.navigate(['/edit-recipe', this.recipeId]);
-  }
-
   // navigate to the recipes page
   backToRecipes(): void {
     this.router.navigate(['/recipes']);

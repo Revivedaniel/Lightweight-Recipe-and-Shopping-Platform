@@ -60,4 +60,8 @@ export class RecipeService {
   getRecipe(id: number) {
     return this.recipes.find(recipe => recipe.id === id);
   }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+  }
 }

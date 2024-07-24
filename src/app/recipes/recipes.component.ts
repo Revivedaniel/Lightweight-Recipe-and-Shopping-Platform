@@ -73,4 +73,8 @@ export class RecipesComponent implements OnInit {
   viewRecipe(id: number): void {
     this.router.navigate(['/recipes', id]);
   }
+
+  addRecipe(): void {
+    this.router.navigate(['/recipes/new']);
+  }
 }
