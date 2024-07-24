@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import { Recipe } from '../models/recipe.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { CommonModule } from '@angular/common';
 
@@ -21,7 +21,7 @@ export class RecipeComponent implements OnInit {
 
   recipeId: string | null = '';
   recipe: Recipe = { id: 1, name: '', description: '', ingredients: [], instructions: [] }; 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -35,5 +35,15 @@ export class RecipeComponent implements OnInit {
         console.log(recipe)
       }
     }
+  }
+
+  // navigate to the edit recipe page
+  editRecipe(): void {
+    this.router.navigate(['/edit-recipe', this.recipeId]);
+  }
+
+  // navigate to the recipes page
+  backToRecipes(): void {
+    this.router.navigate(['/recipes']);
   }
 }

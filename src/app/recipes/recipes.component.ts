@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { RecipeItemComponent } from '../components/recipe-item/recipe-item.component';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
+import { Router } from '@angular/router';
 
 export interface User {
   name: string;
@@ -42,7 +43,7 @@ export class RecipesComponent implements OnInit {
   filteredOptions!: Observable<User[]>;
   recipes: Recipe[] = [];
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService, private router: Router) {}
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -66,5 +67,10 @@ export class RecipesComponent implements OnInit {
     return this.options.filter((option) =>
       option.name.toLowerCase().includes(filterValue)
     );
+  }
+
+  // navigate to the recipes/:id page
+  viewRecipe(id: number): void {
+    this.router.navigate(['/recipes', id]);
   }
 }
