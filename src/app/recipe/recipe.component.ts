@@ -7,6 +7,7 @@ import { Recipe } from '../models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { CommonModule } from '@angular/common';
+import { ShoppingListService } from '../services/shopping-list.service';
 
 @Component({
   selector: 'app-recipe',
@@ -21,7 +22,7 @@ export class RecipeComponent implements OnInit {
 
   recipeId: string | null = '';
   recipe: Recipe = { id: 1, name: '', description: '', ingredients: [], instructions: [] }; 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router, private shoppingListService: ShoppingListService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -40,5 +41,9 @@ export class RecipeComponent implements OnInit {
   // navigate to the recipes page
   backToRecipes(): void {
     this.router.navigate(['/recipes']);
+  }
+
+  addToShoppingList(): void {
+    this.shoppingListService.addManyItems(this.recipe.ingredients);
   }
 }
