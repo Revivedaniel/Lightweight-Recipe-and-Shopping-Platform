@@ -1,0 +1,27 @@
+<mat-toolbar>
+    <button mat-icon-button>
+        <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <span>
+        <button mat-button>Add to Cart</button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </span>
+</mat-toolbar>
+<div>
+    <h2>{{recipe.name}}</h2>
+    <p>{{recipe.description}}</p>
+    <div>
+        <h3>Ingredients</h3>
+        <ul id="ingredientList">
+            <li *ngFor="let ingredient of recipe.ingredients"><span>{{ingredient.quantity}} {{ingredient.measurement}}</span><span>{{ingredient.name}}</span></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Instructions</h3>
+        <ul id="instructionList">
+            <li *ngFor="let instruction of recipe.instructions">{{instruction}}</li>
+        </ul>
+    </div>
+</div>

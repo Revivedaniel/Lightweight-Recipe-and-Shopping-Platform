@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-item',
@@ -9,6 +10,5 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './recipe-item.component.scss'
 })
 export class RecipeItemComponent {
-  @Input() title: string = '';
-  @Input() description: string = '';
+  @Input() recipe: Recipe = { id: 1, name: '', description: '', ingredients: [], instructions: [] };
 }
