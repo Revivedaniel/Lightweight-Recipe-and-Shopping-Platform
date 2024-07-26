@@ -3,7 +3,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteActivatedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,10 +13,6 @@ import { RecipeItemComponent } from '../components/recipe-item/recipe-item.compo
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
 import { Router } from '@angular/router';
-
-export interface User {
-  name: string;
-}
 
 @Component({
   selector: 'app-recipes',
@@ -38,9 +34,9 @@ export interface User {
   styleUrl: './recipes.component.scss',
 })
 export class RecipesComponent implements OnInit {
-  myControl = new FormControl<string | User>('');
-  options: User[] = [{ name: 'Mary' }, { name: 'Shelley' }, { name: 'Igor' }];
-  filteredOptions!: Observable<User[]>;
+  myControl = new FormControl<string | Recipe>('');
+  options: Recipe[] = [];
+  filteredOptions!: Observable<Recipe[]>;
   recipes: Recipe[] = [];
   recipeSubscription!: Subscription;
 
@@ -57,20 +53,22 @@ export class RecipesComponent implements OnInit {
 
     this.recipeService.getRecipes().then((recipes) => {
       this.recipes = recipes;
+      this.options = recipes;
     });
 
     this.recipeSubscription = this.recipeService.recipesChanged.subscribe(
       (recipes) => {
         this.recipes = recipes;
+        this.options = recipes;
       }
     );
   }
 
-  displayFn(user: User): string {
-    return user && user.name ? user.name : '';
+  displayFn(recipe: Recipe): string {
+    return recipe && recipe.name ? recipe.name : '';
   }
 
-  private _filter(name: string): User[] {
+  private _filter(name: string): Recipe[] {
     const filterValue = name.toLowerCase();
 
     return this.options.filter((option) =>
@@ -85,5 +83,27 @@ export class RecipesComponent implements OnInit {
 
   addRecipe(): void {
     this.router.navigate(['/recipes/new']);
+  }
+
+  filterRecipes(): void {
+    const name = this.myControl.value;
+    if (name) {
+      this.recipes = this.options.filter((recipe) => recipe.name === name);
+    } else {
+      this.recipes = this.options;
+    }
+  }
+
+  clearSelection(): void {
+    this.myControl.setValue('');
+    this.recipes = this.options;
+  }
+
+  matOnChange(event: MatAutocompleteActivatedEvent) {
+    this.viewRecipe(event.option?.value.id);
+  }
+  
+  ngOnDestroy() {
+    this.recipeSubscription.unsubscribe();
   }
 }
