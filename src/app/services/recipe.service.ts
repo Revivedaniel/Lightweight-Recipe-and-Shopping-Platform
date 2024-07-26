@@ -28,6 +28,14 @@ export class RecipeService {
     });
   }
 
+  async updateRecipe(recipe: Recipe): Promise<number> {
+    return new Promise(async (resolve, reject) => {
+      await this.db.recipe.put(recipe);
+      this.handleRecipeChange();
+      resolve(recipe.id);
+    });
+  }
+
   handleRecipeChange() {
     this.getRecipes().then((recipes) => {
       this.recipes = recipes;

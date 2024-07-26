@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-form',
@@ -35,6 +35,8 @@ export class RecipeFormComponent implements OnInit {
   addingIngredient = false;
   addingInstruction = false;
   recipeForm!: FormGroup;
+  editMode = false;
+  recipeId: number | null = null;
   measurements: string[] = [
     'tsp',
     'tbsp',
@@ -70,10 +72,49 @@ export class RecipeFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const recipeId = params.get('id');
+      if (recipeId) {
+        this.recipeService.getRecipe(Number(recipeId)).then((recipe) => {
+          if (recipe) {
+            this.editMode = true;
+            this.recipeId = recipe.id;
+            this.recipeForm = this.fb.group({
+              name: [recipe.name, Validators.required],
+              description: [recipe.description, Validators.required],
+              ingredients: this.fb.array(
+                recipe.ingredients.map((ingredient) =>
+                  this.fb.group({
+                    id: ingredient.id,
+                    name: ingredient.name,
+                    quantity: ingredient.quantity,
+                    measurement: ingredient.measurement,
+                    inCart: ingredient.inCart,
+                  })
+                )
+              ),
+              newIngredient: this.createIngredientGroup(),
+              instructions: this.fb.array(
+                recipe.instructions.map((instruction) =>
+                  this.fb.group({ instruction })
+                )
+              ),
+              newInstruction: this.createInstructionGroup(),
+            });
+          }
+        });
+      } else {
+        this.initForm();
+      }
+    });
+  }
+
+  initForm(): void {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -188,19 +229,36 @@ export class RecipeFormComponent implements OnInit {
         (inst: any) => inst.instruction
       );
 
-      const newRecipe: Recipe = {
-        id: Date.now(),
-        name: formValue.name,
-        description: formValue.description,
-        ingredients: formValue.ingredients,
-        instructions: instructions, // Use the transformed array of strings
-      };
-
-      this.recipeService.addRecipe(newRecipe).then((newRecipeId) => {
-        this.recipeForm.reset();
-        this.resetFormArrays();
-        this.router.navigate(['/recipes', newRecipeId]);
-      });
+      
+      if (this.editMode) {
+        console.log('editMode')
+        const updatedRecipe: Recipe = {
+          id: this.recipeId as number,
+          name: formValue.name,
+          description: formValue.description,
+          ingredients: formValue.ingredients,
+          instructions: instructions,
+        };
+        console.log(updatedRecipe)
+        this.recipeService.updateRecipe(updatedRecipe).then((recipeId) => {
+          this.recipeForm.reset();
+          this.resetFormArrays();
+          this.router.navigate(['/recipes', recipeId]);
+        });
+      } else {
+        const newRecipe: Recipe = {
+          id: Date.now(),
+          name: formValue.name,
+          description: formValue.description,
+          ingredients: formValue.ingredients,
+          instructions: instructions, // Use the transformed array of strings
+        };
+        this.recipeService.addRecipe(newRecipe).then((newRecipeId) => {
+          this.recipeForm.reset();
+          this.resetFormArrays();
+          this.router.navigate(['/recipes', newRecipeId]);
+        });
+      }
     } else {
       // Handle the error case where no ingredients or instructions have been added
       alert('Please add at least one ingredient and one instruction.');

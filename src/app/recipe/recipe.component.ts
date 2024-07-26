@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { ShoppingListService } from '../services/shopping-list.service';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-recipe',
@@ -18,6 +19,7 @@ import { ShoppingListService } from '../services/shopping-list.service';
     MatButtonModule,
     MatIconModule,
     MatListModule,
+    MatMenuModule
   ],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.scss',
@@ -62,5 +64,9 @@ export class RecipeComponent implements OnInit {
 
   addToShoppingList(): void {
     this.shoppingListService.addManyItems(this.recipe.ingredients);
+  }
+
+  editRecipe(): void {
+    this.router.navigate([`/recipes/${this.recipe.id}/edit`]);
   }
 }
