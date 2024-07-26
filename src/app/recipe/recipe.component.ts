@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,6 +9,16 @@ import { RecipeService } from '../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { ShoppingListService } from '../services/shopping-list.service';
 import {MatMenuModule} from '@angular/material/menu';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-recipe',
@@ -19,7 +29,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    
   ],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.scss',
@@ -28,6 +39,7 @@ export class RecipeComponent implements OnInit {
   // aquire the recipe id from the :id param
   // get the recipe object from the recipe service
 
+  readonly dialog = inject(MatDialog);
   recipeId: string | null = '';
   recipe: Recipe = {
     id: 1,
@@ -68,5 +80,17 @@ export class RecipeComponent implements OnInit {
 
   editRecipe(): void {
     this.router.navigate([`/recipes/${this.recipe.id}/edit`]);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recipeService.deleteRecipe(this.recipe.id).then(() => {
+          this.router.navigate(['/recipes']);
+        });
+      }
+    });
   }
 }

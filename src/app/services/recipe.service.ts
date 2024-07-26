@@ -36,6 +36,15 @@ export class RecipeService {
     });
   }
 
+  async deleteRecipe(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.db.recipe.delete(id).then(() => {
+        this.handleRecipeChange();
+        resolve();
+      });
+    });
+  }
+
   handleRecipeChange() {
     this.getRecipes().then((recipes) => {
       this.recipes = recipes;
