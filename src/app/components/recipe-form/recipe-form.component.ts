@@ -174,6 +174,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   editIngredient(index: number): void {
+    this.addingIngredient = true;
     const ingredient = this.ingredients.at(index).value;
     const newIngredientGroup = this.recipeForm.get(
       'newIngredient'
@@ -206,6 +207,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   editInstruction(index: number): void {
+    this.addingInstruction = true;
     const instruction = this.instructions.at(index).value;
     const newInstructionGroup = this.recipeForm.get(
       'newInstruction'
