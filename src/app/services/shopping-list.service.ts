@@ -20,6 +20,11 @@ export class ShoppingListService {
     this.handleShoppingListChange();
   }
 
+  async addManyItems(items: ShoppingListItem[]) {
+    await this.db.shoppingListItem.bulkAdd(items);
+    this.handleShoppingListChange();
+  }
+
   async updateItem(item: ShoppingListItem) {
     await this.db.shoppingListItem.put(item);
   }

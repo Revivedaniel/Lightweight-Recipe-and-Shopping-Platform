@@ -1,0 +1,19 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-toolbar span {
+    display: flex;
+    align-items: center;
+}
+
+#ingredientList, #instructionList {
+    width: 80vw;
+}
+
+#ingredientList li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}

@@ -1,14 +1,17 @@
 // db.ts
 import Dexie, { Table } from 'dexie';
 import { ShoppingListItem } from './models/shoppingListItem.model';
+import { Recipe } from './models/recipe.model';
 
 export class AppDB extends Dexie {
   shoppingListItem!: Table<ShoppingListItem, number>;
+  recipe!: Table<Recipe, number>;
 
   constructor() {
     super('ngdexieliveQuery');
     this.version(1).stores({
       shoppingListItem: '++id, quantity, name, inCart, measurement',
+      recipe: '++id, name, description, ingredients, instructions'
     });
     this.on('populate', () => this.populate());
   }

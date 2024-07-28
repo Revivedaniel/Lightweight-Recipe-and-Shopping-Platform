@@ -1,13 +1,23 @@
 <div>
     <form class="example-form">
         <mat-form-field class="example-full-width">
-          <mat-label>Assignee</mat-label>
+          <mat-label>Recipe Search</mat-label>
           <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <button mat-icon-button *ngIf="myControl.value" matSuffix (click)="clearSelection()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="matOnChange($event)">
             @for (option of filteredOptions | async; track option) {
               <mat-option [value]="option">{{option.name}}</mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
       </form>
+      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="addRecipe()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+</div>
+<div>
+  <app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe" (click)="viewRecipe(recipe.id)"></app-recipe-item>
 </div>
