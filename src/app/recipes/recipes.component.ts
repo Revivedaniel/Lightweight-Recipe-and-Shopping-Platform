@@ -13,6 +13,7 @@ import { RecipeItemComponent } from '../components/recipe-item/recipe-item.compo
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-recipes',
@@ -29,6 +30,7 @@ import { Router } from '@angular/router';
     MatListModule,
     MatDividerModule,
     RecipeItemComponent,
+    MatButtonModule
   ],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.scss',
