@@ -1,0 +1,19 @@
+li {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px;
+    align-items: center;
+}
+
+li #buttons {
+    display: flex;
+    align-items: center;
+}
+
+li span {
+    max-width: 50%
+}
+
+button {
+    font-size: 3vw;
+}

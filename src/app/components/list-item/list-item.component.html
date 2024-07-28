@@ -1,11 +1,15 @@
-<mat-list-item role="listitem">
-    {{item.quantity}}
-    {{item.measurement}}
-    {{item.name}}
-    <button mat-raised-button extended (click)="toggleInCart()">
-        {{item.inCart ? 'Remove from' : 'Add to'}} Cart
-    </button>
-    <button mat-icon-button aria-label="Icon button with a verticle ellipses icon" (click)="openEditDialog()">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-</mat-list-item>
+<li role="listitem">
+    <span>
+        {{item.quantity}}
+        {{item.measurement}}
+        {{item.name}}
+    </span>
+    <span id="buttons">
+        <button mat-raised-button extended (click)="toggleInCart()">
+            {{item.inCart ? 'Remove from' : 'Add to'}} Cart
+        </button>
+        <button mat-icon-button aria-label="Icon button with a verticle ellipses icon" (click)="openEditDialog()">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </span>
+</li>
