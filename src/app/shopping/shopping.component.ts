@@ -30,6 +30,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './shopping.component.scss',
 })
 export class ShoppingComponent implements OnInit, OnDestroy {
+  // Fix visual bug where you cannot scroll to the bottom of the shopping list.
   readonly dialog = inject(MatDialog  );
   items: ShoppingListItem[] = [];
   shoppingListSubscription!: Subscription;

@@ -1,9 +1,9 @@
 <div class="top-buttons">
-    <button mat-fab extended (click)="openAddDialog()">
+    <button mat-raised-button extended (click)="openAddDialog()">
         <mat-icon>favorite</mat-icon>
         Add
     </button>
-    <button mat-fab extended (click)="openVerifyDialog()">
+    <button mat-raised-button extended (click)="openVerifyDialog()">
         <mat-icon>check</mat-icon>
         Verify
     </button>
@@ -13,13 +13,15 @@
     <app-list-item *ngFor="let item of items" [item]="item"></app-list-item>
 </div>
 
-<div class="bottom-buttons">
-    <button mat-fab extended (click)="clearList()">
+<div class="bottom-buttons" *ngIf="items.length > 0">
+    <button mat-raised-button extended (click)="clearList()">
         <mat-icon>delete_forever</mat-icon>
         Clear All
     </button>
-    <button mat-fab extended (click)="clearInCart()">
+    <button mat-raised-button extended (click)="clearInCart()">
         <mat-icon>delete_forever</mat-icon>
         Clear In Cart
     </button>
 </div>
+
+<h2 *ngIf="items.length <= 0">The shopping list is empty!</h2>
