@@ -8,12 +8,49 @@ mat-toolbar span {
     align-items: center;
 }
 
-#ingredientList, #instructionList {
+mat-divider {
+    background-color: #3d363b;
+}
+
+#ingredientList,
+#instructionList {
     width: 80vw;
 }
 
 #ingredientList li {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-bottom: 10px;
+}
+
+.ingredientMeasurement {
+    width: 6em;
+}
+
+h2 {
+    margin-top: 16px;
+    text-align: center;
+}
+
+h3 {
+    margin: 16px;
+    font-weight: 500;
+}
+
+#ingredientList {
+    padding-inline-start: 1em;
+}
+
+#ingredientList li {
+    font-weight: 500;
+    margin-left: 2px;
+}
+
+#instructionList li {
+    color: #3d363b;
+    margin-bottom: 16px;
+}
+#instructionList li::marker {
+    color: #4e716e;
+    font-weight: 500;
 }

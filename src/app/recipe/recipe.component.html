@@ -15,17 +15,21 @@
 </mat-toolbar>
 <div>
     <h2>{{recipe.name}}</h2>
-    <p>{{recipe.description}}</p>
+    <mat-divider></mat-divider>
+    <h3>{{recipe.description}}</h3>
+    <mat-divider></mat-divider>
     <div>
         <h3>Ingredients</h3>
         <ul id="ingredientList">
-            <li *ngFor="let ingredient of recipe.ingredients"><span>{{ingredient.quantity}} {{ingredient.measurement}}</span><span>{{ingredient.name}}</span></li>
+            <!-- TODO: Render the measurement 1/2 when the value is .5, 3 1/2 when the value is 3.5, etc. -->
+             <!-- TODO: Render the measurement as cups when there are more than one cup, etc. -->
+            <li *ngFor="let ingredient of recipe.ingredients"><span class="ingredientMeasurement">{{ingredient.quantity}} {{ingredient.measurement}}</span><span>{{ingredient.name}}</span></li>
         </ul>
     </div>
     <div>
         <h3>Instructions</h3>
-        <ul id="instructionList">
+        <ol id="instructionList">
             <li *ngFor="let instruction of recipe.instructions">{{instruction}}</li>
-        </ul>
+        </ol>
     </div>
 </div>

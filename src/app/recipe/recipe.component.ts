@@ -10,15 +10,10 @@ import { CommonModule } from '@angular/common';
 import { ShoppingListService } from '../services/shopping-list.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {
-  MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
 } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-recipe',
@@ -30,7 +25,7 @@ import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    
+    MatDividerModule
   ],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.scss',

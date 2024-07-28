@@ -32,6 +32,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './recipe-form.component.scss',
 })
 export class RecipeFormComponent implements OnInit {
+  // TODO: Fix bug where the form for ingredients and instructions is not displayed when the edit button is selected and the form had been closed.
   addingIngredient = false;
   addingInstruction = false;
   recipeForm!: FormGroup;
