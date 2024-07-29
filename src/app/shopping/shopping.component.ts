@@ -14,6 +14,8 @@ import {
 import { ShoppingListFormComponent } from '../components/shopping-list-form/shopping-list-form.component';
 import { ShoppingListVerificationComponent } from '../components/shopping-list-verification/shopping-list-verification.component';
 import { Subscription } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-shopping',
@@ -25,6 +27,7 @@ import { Subscription } from 'rxjs';
     MatIconModule,
     ListItemComponent,
     MatListModule,
+    MatMenuModule
   ],
   templateUrl: './shopping.component.html',
   styleUrl: './shopping.component.scss',
@@ -35,7 +38,7 @@ export class ShoppingComponent implements OnInit, OnDestroy {
   items: ShoppingListItem[] = [];
   shoppingListSubscription!: Subscription;
 
-  constructor(private shoppingListService: ShoppingListService, private db: AppDB) {}
+  constructor(private shoppingListService: ShoppingListService, private db: AppDB, private dataService: DataService) {}
 
   ngOnInit(): void {
     // this.db.populate();
@@ -71,6 +74,12 @@ export class ShoppingComponent implements OnInit, OnDestroy {
     this.dialog.open(ShoppingListVerificationComponent, {
       width: '250px',
     });
+  }
+
+  downloadList(): void {
+    this.shoppingListService.getShoppingList().then((items) => {
+      this.dataService.downloadJson(items, 'shopping-list');
+    })
   }
 
   ngOnDestroy(): void {

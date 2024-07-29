@@ -14,6 +14,8 @@ import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-recipes',
@@ -30,7 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatDividerModule,
     RecipeItemComponent,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.scss',
@@ -42,7 +45,7 @@ export class RecipesComponent implements OnInit {
   recipes: Recipe[] = [];
   recipeSubscription!: Subscription;
 
-  constructor(private recipeService: RecipeService, private router: Router) {}
+  constructor(private recipeService: RecipeService, private router: Router, private dataService: DataService) {}
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -103,6 +106,12 @@ export class RecipesComponent implements OnInit {
 
   matOnChange(event: MatAutocompleteActivatedEvent) {
     this.viewRecipe(event.option?.value.id);
+  }
+
+  downloadRecipes(): void {
+    this.recipeService.getRecipes().then((recipes) => {
+      this.dataService.downloadJson(recipes, 'recipes');
+    });
   }
   
   ngOnDestroy() {
