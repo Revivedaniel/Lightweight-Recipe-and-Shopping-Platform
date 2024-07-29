@@ -28,6 +28,14 @@ export class RecipeService {
     });
   }
 
+  async addRecipes(recipes: Recipe[]): Promise<number[]> {
+    return new Promise(async (resolve, reject) => {
+      await this.db.recipe.bulkAdd(recipes);
+      this.handleRecipeChange();
+      resolve(recipes.map((recipe) => recipe.id));
+    });
+  }
+
   async updateRecipe(recipe: Recipe): Promise<number> {
     return new Promise(async (resolve, reject) => {
       await this.db.recipe.put(recipe);

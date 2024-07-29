@@ -16,6 +16,7 @@ import { ShoppingListVerificationComponent } from '../components/shopping-list-v
 import { Subscription } from 'rxjs';
 import { MatMenuModule } from '@angular/material/menu';
 import { DataService } from '../services/data.service';
+import { UploadDialogComponent } from '../components/upload-dialog/upload-dialog.component';
 
 @Component({
   selector: 'app-shopping',
@@ -34,7 +35,7 @@ import { DataService } from '../services/data.service';
 })
 export class ShoppingComponent implements OnInit, OnDestroy {
   // Fix visual bug where you cannot scroll to the bottom of the shopping list.
-  readonly dialog = inject(MatDialog  );
+  readonly dialog = inject(MatDialog);
   items: ShoppingListItem[] = [];
   shoppingListSubscription!: Subscription;
 
@@ -74,6 +75,12 @@ export class ShoppingComponent implements OnInit, OnDestroy {
     this.dialog.open(ShoppingListVerificationComponent, {
       width: '250px',
     });
+  }
+
+  openUploadDialog(): void {
+    this.dialog.open(UploadDialogComponent, {
+      data: { resource: 'list' },
+    })
   }
 
   downloadList(): void {

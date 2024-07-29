@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { DataService } from '../services/data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UploadDialogComponent } from '../components/upload-dialog/upload-dialog.component';
 
 @Component({
   selector: 'app-recipes',
@@ -39,6 +41,7 @@ import { DataService } from '../services/data.service';
   styleUrl: './recipes.component.scss',
 })
 export class RecipesComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
   myControl = new FormControl<string | Recipe>('');
   options: Recipe[] = [];
   filteredOptions!: Observable<Recipe[]>;
@@ -112,6 +115,12 @@ export class RecipesComponent implements OnInit {
     this.recipeService.getRecipes().then((recipes) => {
       this.dataService.downloadJson(recipes, 'recipes');
     });
+  }
+
+  openUploadDialog(): void {
+    this.dialog.open(UploadDialogComponent, {
+      data: { resource: 'recipe' },
+    })
   }
   
   ngOnDestroy() {

@@ -22,7 +22,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Upload Recipes</button>
+      <button mat-menu-item (click)="openUploadDialog()">Upload Recipes</button>
       <button mat-menu-item (click)="downloadRecipes()">Download Recipes</button>
     </mat-menu>
   </div>
