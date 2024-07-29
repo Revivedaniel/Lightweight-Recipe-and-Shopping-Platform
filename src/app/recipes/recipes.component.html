@@ -1,22 +1,32 @@
 <div>
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label>Recipe Search</mat-label>
-          <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <button mat-icon-button *ngIf="myControl.value" matSuffix (click)="clearSelection()">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="matOnChange($event)">
-            @for (option of filteredOptions | async; track option) {
-              <mat-option [value]="option">{{option.name}}</mat-option>
-            }
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-      <button mat-raised-button id="addRecipeButton" (click)="addRecipe()">
-        <mat-icon>add</mat-icon>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Recipe Search</mat-label>
+      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <button mat-icon-button *ngIf="myControl.value" matSuffix (click)="clearSelection()">
+        <mat-icon>close</mat-icon>
       </button>
-      <mat-divider></mat-divider>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="matOnChange($event)">
+        @for (option of filteredOptions | async; track option) {
+        <mat-option [value]="option">{{option.name}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <div id="topButtons">
+    <button mat-raised-button id="addRecipeButton" (click)="addRecipe()">
+      <mat-icon>add</mat-icon>
+      New Recipe
+    </button>
+    <button mat-raised-button extended [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openUploadDialog()">Upload Recipes</button>
+      <button mat-menu-item (click)="downloadRecipes()">Download Recipes</button>
+    </mat-menu>
+  </div>
+  <mat-divider></mat-divider>
 </div>
 <div>
   <app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe" (click)="viewRecipe(recipe.id)"></app-recipe-item>

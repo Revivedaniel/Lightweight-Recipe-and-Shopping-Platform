@@ -1,0 +1,4 @@
+<input #jsonInput hidden="true" type="file" onclick="this.value=null"
+    (change)="jsonInputUpdate($event); cancelButton.click()" accept=".json" />
+<button mat-flat-button color="primary" (click)="jsonInput.click()">Choose JSON File (.json)</button>
+<button #cancelButton (click)="confirmation()" [mat-dialog-close]="true">Cancel</button>

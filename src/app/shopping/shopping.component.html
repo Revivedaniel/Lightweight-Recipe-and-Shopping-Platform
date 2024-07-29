@@ -7,6 +7,13 @@
         <mat-icon>check</mat-icon>
         Verify
     </button>
+    <button mat-raised-button extended [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openUploadDialog()">Upload List</button>
+        <button mat-menu-item (click)="downloadList()">Download List</button>
+    </mat-menu>
 </div>
 
 <div>

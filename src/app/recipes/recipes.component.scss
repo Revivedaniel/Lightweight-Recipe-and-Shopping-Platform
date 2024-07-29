@@ -13,5 +13,10 @@ mat-divider {
 }
 
 #addRecipeButton {
-  width: 100%;
+  width: 80%;
+}
+
+#topButtons {
+  display: flex;
+  justify-content: center;
 }
