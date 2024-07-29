@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1722275045934,
+  "timestamp": 1722278811399,
   "index": "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/chunk-7FWKCDPF.js",
         "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/favicon.ico",
         "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/index.html",
-        "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/main-U6ASWIRD.js",
+        "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/main-MODZMJW2.js",
         "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/manifest.webmanifest",
         "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/polyfills-SCHOHYNV.js",
         "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/styles-5U3VRRT3.css"
@@ -55,8 +55,8 @@
     "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/chunk-4XFYREOB.js": "684135e75494249f80c3794d5d8cf1ac5eb967ba",
     "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/chunk-7FWKCDPF.js": "5d3ab453f8f05610d6bc2585537310fe7868a567",
     "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/index.html": "c54246a3d4e6de183346ebfd977fd1bf4c84902f",
-    "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/main-U6ASWIRD.js": "ef746bb617fc8eba020697d2c895797c26b882a4",
+    "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/index.html": "f7b1c0cb53e0277bb638e1bb1fde19161fa61985",
+    "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/main-MODZMJW2.js": "9cfdd777b10407a676360125dce4d9237a539e5f",
     "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/manifest.webmanifest": "bf3229ed9e2223b46b4f590ac9d549d1f6e7e027",
     "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/polyfills-SCHOHYNV.js": "d45c76c5960bab3ace7fd6d211b9579456241f8a",
     "https://Revivedaniel.github.io/Lightweight-Recipe-and-Shopping-Platform/styles-5U3VRRT3.css": "4f2d6ecaec3e6794c814ae8fdcc76e5a2ec62ca8"
